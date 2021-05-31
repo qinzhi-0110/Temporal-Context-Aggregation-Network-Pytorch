@@ -122,5 +122,5 @@ Please cite the following paper if you feel TCANet useful to your research
 ## Contact
 For any question, please file an issue or contact
 ```
-Tianwei Lin: qzw@hust.edu.cn
+Zhiwu Qing: qzw@hust.edu.cn
 ```
