@@ -34,7 +34,7 @@ These code is  implemented in Pytorch 1.5.1 + Python3.
 Clone this repo with git, please use:
 
 ```
-git clone https://github.com/.git
+git clone https://github.com/qingzhiwu/Temporal-Context-Aggregation-Network-Pytorch.git
 ```
 
 
