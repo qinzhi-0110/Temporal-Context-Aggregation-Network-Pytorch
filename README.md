@@ -2,7 +2,7 @@
 
 This repo holds the pytorch-version codes of paper: "Temporal Context Aggregation Network for Temporal Action Proposal Refinement", which is accepted in CVPR 2021.
 
-[[Arxiv Preprint]](http://arxiv.org/abs/2103.1314)
+[[Arxiv Preprint]](http://arxiv.org/abs/2103.13141)
 
 # Update
 
