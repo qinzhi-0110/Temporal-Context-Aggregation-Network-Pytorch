@@ -41,11 +41,11 @@ git clone https://github.com/qingzhiwu/Temporal-Context-Aggregation-Network-Pyto
 
 ## Download Datasets
 
-We support experiments with publicly available dataset HACS for temporal action proposal generation now. To download this dataset, please use [official HACS downloader](https://github.com/) to download videos from the YouTube.
+We support experiments with publicly available dataset HACS for temporal action proposal generation now. To download this dataset, please use [official HACS downloader](https://github.com/hangzhaomit/HACS-dataset) to download videos from the YouTube.
 
-To extract visual feature, we adopt Slowfast model pretrained on the training set of HACS. Please refer this repo [Slowfast](https://github.com/) to extract features.
+To extract visual feature, we adopt Slowfast model pretrained on the training set of HACS. Please refer this repo [Slowfast](https://github.com/facebookresearch/SlowFast) to extract features.
 
-For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](). 
+For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](https://pan.baidu.com/s/17m1LY4Ibftl5wXJ4qlTnRQ)[473u]. 
 
 # Training and Testing  of TCANet
 
@@ -76,7 +76,7 @@ python3
 #### 4. Training of TCANet
 
 ```
-python3 main_tca.py --mode train
+python3 main_tcanet.py --mode train
 ```
 
 We also provide trained PEM model in `./checkpoint` .
@@ -84,13 +84,17 @@ We also provide trained PEM model in `./checkpoint` .
 #### 6. Testing of TCANet
 
 ```
-python3 main_tca.py  --mode inference
+# We split the dataset into 4 parts, and inference these parts on 4 gpus
+python3 main_tcanet.py  --mode inference --part_idx 0 --gpu 0
+python3 main_tcanet.py  --mode inference --part_idx 1 --gpu 1
+python3 main_tcanet.py  --mode inference --part_idx 2 --gpu 2
+python3 main_tcanet.py  --mode inference --part_idx 3 --gpu 3
 ```
 
 #### 7. Post processing and generate final results
 
 ```
-python3 main_tca.py
+python3 main_tcanet.py  --mode inference --part_idx -1
 ```
 
 # Other Info

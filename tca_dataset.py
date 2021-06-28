@@ -47,9 +47,13 @@ class TCADataSet(data.Dataset):
         self.mode = opt["mode"]
         self.feature_path = opt["feature_path"]
         self.video_anno_path = opt["video_anno"]
-        self.proposals_path = opt["proposals_path"]
+        if opt["mode"] in 'training':
+            self.proposals_path = opt["train_proposals_path"]
+        elif opt["mode"] in 'inference':
+            self.proposals_path = opt["test_proposals_path"]
 
         self._getDatasetDict()
+        self._splitPart(opt)
 
     def _getDatasetDict(self):
         ignore_videos = ['S8GtH2Zayds', 'saZkh1Xacp0', 'uRCf7b3qk0I', 'ukyFvye2yK0', 'VsZiOEzQqyI', 'KhkQyn-WblM']
@@ -83,6 +87,16 @@ class TCADataSet(data.Dataset):
                                                                                  self.dirty_video_cnt))
         return gt_list
 
+    def _splitPart(self, opt):
+        if opt["part_idx"] >= 0:
+            part_num = 4
+            assert part_num > opt["part_idx"]
+            self.video_list.sort()
+            avg_num = math.ceil(len(self.video_list) / part_num)
+            self.video_list = self.video_list[opt["part_idx"]*avg_num:(opt["part_idx"]+1)*avg_num]
+            print("partidx:{}  total count:{}".format(opt["part_idx"], len(self.video_list)))
+        else:
+            print("not split part!")
     def _filter_dirty_data(self, anno):
         new_anno = {"annotations": [],
                     "duration": anno["duration"],

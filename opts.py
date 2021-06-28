@@ -17,11 +17,11 @@ def parse_opt():
     parser.add_argument(
         '--checkpoint_path',
         type=str,
-        default='/mnt/data/FlylineData/flq/model/train_snap/hacs/hacs.tca.debug/')
+        default='/mnt/data/qzw/model/train_snap/hacs/tcanet_test/')
     parser.add_argument(
         '--training_lr',
         type=float,
-        default=0.001)
+        default=0.0004)
     parser.add_argument(
         '--weight_decay',
         type=float,
@@ -30,7 +30,7 @@ def parse_opt():
     parser.add_argument(
         '--num_workers',
         type=int,
-        default=4)
+        default=8)
 
     parser.add_argument(
         '--train_epochs',
@@ -53,7 +53,7 @@ def parse_opt():
     parser.add_argument(
         '--video_anno',
         type=str,
-        default="/mnt/data/FlylineData/flq/dataset/HACS/HACS-dataset/HACS_v1.1.1/HACS_segments_v1.1.1.json")
+        default="/mnt/data/qzw/data/hacs/HACS_segments_v1.1.1.json")
     parser.add_argument(
         '--temporal_scale',
         type=int,
@@ -71,12 +71,16 @@ def parse_opt():
     parser.add_argument(
         '--feature_path',
         type=str,
-        default="/home/flq/dataset/HACS/features/slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8/")
+        default="/mnt/data1/qzw/data/hacs/slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8/")
 
     parser.add_argument(
-        '--proposals_path',
+        '--train_proposals_path',
         type=str,
-        default="/mnt/data/FlylineData/flq/model/train_snap/hacs/hacs.bmn.pem.slowfast101.t200.wd1e-5.warmup/pem_input_100/")
+        default="/mnt/data/qzw/data/hacs/proposals/hacs.bmn.pem.slowfast101.t200.wd1e-5.warmup/pem_input_100/")
+    parser.add_argument(
+        '--test_proposals_path',
+        type=str,
+        default="/mnt/data/qzw/data/hacs/proposals/hacs.bmn.pem.slowfast101.t200.wd1e-5.warmup/pem_input/")
 
     parser.add_argument(
         '--num_sample',
@@ -148,13 +152,13 @@ def parse_opt():
     parser.add_argument(
         '--classifier_result',
         type=str,
-        default="/mnt/data/FlylineData/flq/result/hacs.classifier/{}94.32.json",
+        default="/mnt/data1/qzw/data/hacs/{}94.32.json",
     )
 
     parser.add_argument(
         '--output_detection_result',
         type=str,
-        default="False")
+        default="True")
 
     parser.add_argument(
         '--proposals_result_file',
