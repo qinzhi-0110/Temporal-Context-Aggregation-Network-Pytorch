@@ -45,7 +45,7 @@ We support experiments with publicly available dataset HACS for temporal action 
 
 To extract visual feature, we adopt Slowfast model pretrained on the training set of HACS. Please refer this repo [Slowfast](https://github.com/facebookresearch/SlowFast) to extract features.
 
-For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](https://pan.baidu.com/s/17m1LY4Ibftl5wXJ4qlTnRQ)[473u]. 
+For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](https://pan.baidu.com/s/1-lx3-rH3GuI1SpXSOSLFiA)[Code:pu8x]. 
 
 # Training and Testing  of TCANet
 
