@@ -6,6 +6,7 @@ This repo holds the pytorch-version codes of paper: "Temporal Context Aggregatio
 
 # Update
 
+* 2021.07.02: Update proposals, checkpoints, features for TCANet!
 * 2021.05.31: Repository for TCANet
 
 
@@ -45,50 +46,71 @@ We support experiments with publicly available dataset HACS for temporal action 
 
 To extract visual feature, we adopt Slowfast model pretrained on the training set of HACS. Please refer this repo [Slowfast](https://github.com/facebookresearch/SlowFast) to extract features.
 
-For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](https://pan.baidu.com/s/1-lx3-rH3GuI1SpXSOSLFiA)[Code:pu8x]. 
+For convenience of training and testing,  we provide the rescaled feature at here [Google Cloud](https://coming_soon) or [Baidu Yun](https://pan.baidu.com/s/1iaaw1fHzDcF7Dv29NtbzlA)[Code:x3ve]. 
 
+In Baidu Yun Link, we provide:
+```
+-- features/: SlowFast features for training, validation and testing.
+-- checkpoint/: Pre-trained TCANet model for SlowFast features provided by us.
+-- proposals/: BMN proposals processed by us.
+-- classification/: The best classification results we used in paper and 2020 HACS challenge.
+```
 # Training and Testing  of TCANet
 
 All configurations of TCANet are saved in opts.py, where you can modify training and model parameter.
 
 
-#### 1. Training of Boundary-Matching-Network(BMN)
-
-
+#### 1. Unzip Proposals
 ```
-python3 main_bmn.py --mode train
-```
-
-We also provide trained BMN model in `./checkpoint/`
-
-#### 2. Testing of BMN
-
-```
-python3 main_bmn.py --mode inference
+tar -jxvf hacs.bmn.pem.slowfast101.t200.wd1e-5.warmup.pem_input_100.tar.bz2 -C ./
+tar -jxvf hacs.bmn.pem.slowfast101.t200.wd1e-5.warmup.pem_input.tar.bz2 -C ./
 ```
 
-#### 3. Proposals generation
+
+#### 2. Unzip Features
 
 ```
-python3
+# for training features
+cd features/
+cat slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.training.tar.bz2.*>slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.training.tar.gz
+tar -zxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.training.tar.gz
+tar -jxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.training.tar.bz2 -C .
+
+# for validation features
+cd features/
+cat slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.validation.tar.bz2.*>slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.validation.tar.gz
+tar -zxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.validation.tar.gz
+tar -jxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.validation.tar.bz2 -C .
+
+# for testing features
+cd features/
+cat slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.testing.tar.bz2.*>slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.testing.tar.gz
+tar -zxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.testing.tar.gz
+tar -jxvf slowfast101.epoch9.87.52.finetune.pool.t.keep.t.s8.testing.tar.bz2 -C .
 ```
+
 
 #### 4. Training of TCANet
 
 ```
-python3 main_tcanet.py --mode train
+python3 main_tcanet.py --mode train \
+--checkpoint_path ./checkpoint/ \
+--video_anno /path/to/HACS_segments_v1.1.1.json \
+--feature_path /path/to/feature/ \
+--train_proposals_path /path/to/pem_input_100/in/proposals \ 
+--test_proposals_path /path/to/pem_input/in/proposals 
 ```
 
-We also provide trained PEM model in `./checkpoint` .
+We also provide trained TCANet model in `./checkpoint` in our BaiduYun Link.
 
 #### 6. Testing of TCANet
 
 ```
 # We split the dataset into 4 parts, and inference these parts on 4 gpus
-python3 main_tcanet.py  --mode inference --part_idx 0 --gpu 0
-python3 main_tcanet.py  --mode inference --part_idx 1 --gpu 1
-python3 main_tcanet.py  --mode inference --part_idx 2 --gpu 2
-python3 main_tcanet.py  --mode inference --part_idx 3 --gpu 3
+python3 main_tcanet.py  --mode inference --part_idx 0 --gpu 0 --classifier_result /path/to/classifier/{}94.32.json
+python3 main_tcanet.py  --mode inference --part_idx 1 --gpu 1 --classifier_result /path/to/classifier/{}94.32.json
+python3 main_tcanet.py  --mode inference --part_idx 2 --gpu 2 --classifier_result /path/to/classifier/{}94.32.json
+python3 main_tcanet.py  --mode inference --part_idx 3 --gpu 3 --classifier_result /path/to/classifier/{}94.32.json
 ```
 
 #### 7. Post processing and generate final results

@@ -91,8 +91,10 @@ def video_post_process(opt, video_list, video_dict, prefix="BMN"):
 
         df = pd.read_csv(os.path.join(opt["checkpoint_path"],
                                       "{}_results".format(prefix), video_name + ".csv"))
-        df['score'] = df.ori_score.values[:] * df.preds_iou3.values[:]  # * np.power(df.c_score.values[:], 0.1)
-
+        if "BMN" in prefix:
+            df['score'] = np.power(df.clr_score.values[:], 1.2) * df.reg_socre.values[:]
+        else:
+            df['score'] = df.ori_score.values[:] * df.preds_iou3.values[:]
         if len(df) > 1:
             snms_alpha = opt["soft_nms_alpha"]
             snms_t1 = opt["soft_nms_low_thres"]

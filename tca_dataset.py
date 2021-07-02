@@ -97,6 +97,7 @@ class TCADataSet(data.Dataset):
             print("partidx:{}  total count:{}".format(opt["part_idx"], len(self.video_list)))
         else:
             print("not split part!")
+
     def _filter_dirty_data(self, anno):
         new_anno = {"annotations": [],
                     "duration": anno["duration"],
