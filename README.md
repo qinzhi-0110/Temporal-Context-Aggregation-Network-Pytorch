@@ -128,20 +128,12 @@ Please cite the following paper if you feel TCANet useful to your research
 
 ```
 @inproceedings{qing2021temporal,
-  author    = {Qing, Zhiwu and 
-               Su, Haisheng and 
-               Gan, Weihao and 
-               Wang, Dongliang and 
-               Wu, Wei and 
-               Wang, Xiang and 
-               Qiao, Yu and 
-               Yan, Junjie and 
-               Gao, Changxin and 
-               Sang, Nong},
-  title     = {Temporal Context Aggregation Network for Temporal Action Proposal Refinement},
-  booktitle   = {Computer Vision and Pattern Recognition},
-  year      = {2021},
-  }
+  title={Temporal Context Aggregation Network for Temporal Action Proposal Refinement},
+  author={Qing, Zhiwu and Su, Haisheng and Gan, Weihao and Wang, Dongliang and Wu, Wei and Wang, Xiang and Qiao, Yu and Yan, Junjie and Gao, Changxin and Sang, Nong},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={485--494},
+  year={2021}
+}
 ```
 
 
