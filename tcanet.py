@@ -51,8 +51,8 @@ class TCANet(nn.Module):
             gt_boxes = gt_boxes[proposals_select, :]
 
         preds_iou1, proposals1, rloss1, iloss1 = self.tbr1(proposals, features, video_sec, gt_boxes, 0.5, training)
-        preds_iou2, proposals2, rloss2, iloss2 = self.tbr2(proposals, features, video_sec, gt_boxes, 0.6, training)
-        preds_iou3, proposals3, rloss3, iloss3 = self.tbr3(proposals, features, video_sec, gt_boxes, 0.7, training)
+        preds_iou2, proposals2, rloss2, iloss2 = self.tbr2(proposals1, features, video_sec, gt_boxes, 0.6, training)
+        preds_iou3, proposals3, rloss3, iloss3 = self.tbr3(proposals2, features, video_sec, gt_boxes, 0.7, training)
 
         if training:
             loss_meta = {"rloss1": rloss1, "rloss2": rloss2, "rloss3": rloss3,
